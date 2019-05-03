@@ -7,6 +7,8 @@ app_name = "farmApp"
 urlpatterns = [
     path('login/', Auth.AuthView.as_view(), name='auth'),
     path('register/', Auth.registerView.as_view(), name='register'),
+    path('forgetpass/', Auth.forgetpassword.as_view(), name='forgetpass'),
+    path('resetpass/<email>/<token>/<ctime>/', Auth.resetpassword, name='resetpass'),
     path('index/', Home.index.as_view(), name='home'),
     path('logout/', Auth.logout, name='logout'),
 ]

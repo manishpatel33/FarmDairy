@@ -21,14 +21,13 @@ class FarmUser(modelHelper.BaseUser):
     def getFarmUserByEmail(self, email):
         return self.objects.get(email=email)
 
-    def createFarmUser(self, email, first_name, last_name, mobile_no, password):
+    def createFarmUser(self, email, full_name, contact_no, password):
         if not validateHelper.validate_email(email):
             raise Exception('Email Is Not Valid')
 
         self.email = email
-        self.first_name = first_name
-        self.last_name = last_name
-        self.mobile_no = mobile_no
+        self.full_name = full_name
+        self.contact_no = contact_no
         self.set_password(password)
         self.is_active = True
         self.save()

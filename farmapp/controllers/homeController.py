@@ -22,7 +22,7 @@ HOME_PAGE = 'main_theme.html'
 
 class index(View):
 
-    #@farmAuth.Farm_login_required_Class
+    @farmAuth.Farm_login_required_Class
     def get(self, request):
         return render(request, HOME_PAGE)
 
