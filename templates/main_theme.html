@@ -22,6 +22,8 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+  {% block headers %}
+  {% endblock %}
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -149,7 +151,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li class="user-body">
-                    <a class="dropdown-item" href="{% url 'farmApp:logout' %}"><i class="fa fa-user"
+                    <a class="dropdown-item" href="{% url 'farmApp:profile' %}"><i class="fa fa-user"
                     aria-hidden="true"></i>Edit Profile</a>
                   </li>
                   <li class="user-body">
@@ -171,13 +173,15 @@
             <div class="pull-left info"><p>{{request.farm_user.full_name}}</p></div>
           </div>
           <ul class="sidebar-menu" data-widget="tree">
-            <li class="active treeview">
+            <li class="active">
               <a href="{% url 'farmApp:home' %}"><i class="fa fa-home"></i><span>Dashboard</span></a>
             </li>
           </ul>
         </section>
       </aside>
       <div class="content-wrapper">
+        {% block maincontent %}
+        {% endblock %}
       </div>
       <footer class="main-footer">
         <strong>Copyright &copy; 2018-2019.</strong> All rights reserved.
