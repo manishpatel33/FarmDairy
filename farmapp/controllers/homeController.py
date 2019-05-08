@@ -74,3 +74,50 @@ class profile(View):
         farmuser.save()
         messages.success(request, "Changes Successfully Save")
         return HttpResponseRedirect(reverse('farmApp:profile'))
+
+
+class changepassword(View):
+
+    def validate_data(self, request):
+        data = {}
+        old_password = request.POST.get('old_password', '')
+
+        if len(old_password) < 8:
+            raise ValidationError(_('Enter more than 8 characters'))
+
+        if farmAuth.checkFarmUserPassword(request.farm_user, old_password) is False:
+            raise ValidationError(
+                _('Current password not match with your password'))
+
+        new_password = request.POST.get('new_password', '')
+
+        if len(new_password) < 8:
+            raise ValidationError(_('Enter more than 8 characters '))
+
+        data['new_password'] = new_password
+
+        confirm_pass = request.POST.get('confirm_password', '')
+
+        if confirm_pass != new_password:
+            raise ValidationError(
+                _('New Password and Confirm Password dont match'))
+
+        return data
+
+    @farmAuth.Farm_login_required_Class
+    def post(self, request):
+
+        try:
+            data = self.validate_data(request)
+        except ValidationError as e:
+            messages.error(request, e.message)
+            return HttpResponseRedirect(reverse('farmApp:profile'))
+        except Exception as e:
+            messages.error(request, e.message)
+            return HttpResponseRedirect(reverse('farmApp:profile'))
+
+        farmuser = request.farm_user
+        farmuser.set_password(data['new_password'])
+        farmuser.save()
+        messages.success(request, "Password Updated Successfully")
+        return HttpResponseRedirect(reverse('farmApp:profile'))

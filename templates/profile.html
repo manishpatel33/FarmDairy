@@ -4,80 +4,121 @@
 {% endblock %}
 
 {% block maincontent %}
-<div class="app-content content">
-    <div class="content-body">
-        <section id="basic-form-layouts">
-                <div class="row match-height">
-                    <div class="col-md-12">
-                        <div class="card">
-                        {% if messages %}
-                            {% for message in messages %}
-                                <div class="bs-callout-{{message.tags}} p-1">
-                                    <strong></strong>
-                                    <p class="text-center">{{message}}</p>
-                                </div>
-                            {% endfor %}
-                        {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="bs-callout-{{message.tags}} p-1">
+                <strong></strong>
+                <p class="text-center">{{message}}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="content-wrap">
+        <div class="main">
+            <div class="container-fluid">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-title">
+                            <h4>User Profile:</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="basic-elements">
+                                <form method="POST" action="{% url 'farmApp:profile'%}" onsubmit="return validate_form()">
+                                    {%  csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Full Name</label>
+                                                <input id="full_name" class="form-control"
+                                                       data-err-title="Full Name" type="text"
+                                                       value="{{request.farm_user.full_name}}" name="full_name">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Contact No.</label>
+                                                <input id="contact_no" class="form-control"
+                                                       data-err-title="Contact Number" type="text"
+                                                       value="{{request.farm_user.contact_no}}" name="contact_no">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input id="email" class="form-control"
+                                                       data-err-title="Email" type="email"
+                                                       value="{{request.farm_user.email}}" name="email">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group text-right">
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        <section id="basic-form-layouts">
-            <div class="row match-height">
-                <div class="col-md-12">
+
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">User Profile</h4>
+                        <div class="card-title">
+                            <h4>Change Password:</h4>
                         </div>
-                        <div class="card-content collapse show">
-                            <div class="card-body">
-                                <form class="form" method="POST" action="{% url 'farmApp:profile'%}"
-                                      onsubmit="return validate_form()">
-                                    {% csrf_token %}
+                        <div class="card-body">
+                            <div class="basic-elements">
+                                <form method="POST" action="{% url 'farmApp:changepassword'%}"
+                                      onsubmit="return changepass_validate_form()">
+                                    {%  csrf_token %}
                                     <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="first_name">First Name</label>
-                                                    <input type="text" id="first_name" class="form-control"
-                                                        data-err-title="Full_Name" maxlength="32" name="full_name"
-                                                        value="{{request.farm_user.full_name}}">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="email">Email</label>
-                                                    <input type="text" id="email" class="form-control"
-                                                        data-err-title="Email" name="email" maxlength="50"
-                                                        value="{{request.farm_user.email}}">
-                                                </div>
+                                        <div class="col-lg-6">
+                                             <div class="form-group">
+                                                <label for="old_password">Current Password</label>
+                                                <input type="password" id="old_password" class="form-control"
+                                                       data-err-title="old password" name="old_password" minlength="8">
                                             </div>
                                         </div>
+                                    </div>
                                     <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="contact_no">Contact No.</label>
-                                                    <input type="text" id="contact_no" class="form-control"
-                                                        data-err-title="contact no" name="contact_no" maxlength="10"
-                                                        value="{{request.farm_user.contact_no}}">
-                                                </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="new_password">New Password</label>
+                                                <input type="password" id="new_password" class="form-control"
+                                                       data-err-title="New Password" minlength="8"
+                                                       name="new_password">
                                             </div>
                                         </div>
-                                    <div class="form-group">
-                                            <button type="submit"
-                                                class="btn btn-success btn-min-width mr-1 mb-1 float-right">
-                                                Save
-                                            </button>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="confirm_password">Confirm New Password</label>
+                                                <input type="password" id="confirm_password" class="form-control"
+                                                        data-err-title="Confirm Password" name="confirm_password"
+                                                        minlength="8">
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group text-right">
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
-</div>
 {% endblock %}
 
 {% block scriptfile %}
+    <script>
+          function validate_form() {
+            if (!check_form({
+                     "full_name": "c",
+                     "contact_no": "c",
+                     "email": "e",
+                 })) {
+             return false;
+            }
+            }
+</script>
 {% endblock %}
