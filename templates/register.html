@@ -1,17 +1,16 @@
 {%load static%}
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Registration</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css'%}">
-    <link rel="stylesheet" href="{% static 'css/Ionicons/ionicons.min.css'%}">
-    <link rel="stylesheet" href="{% static 'css/AdminLTE.min.css'%}">
-    <link rel="stylesheet" href="{% static 'css/blue.css'%}">
-    <link rel="stylesheet" href="{% static 'css/palette-callout.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lib/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="{% static 'css/lib/font-awesome.min.css'%}">
+        <link rel="stylesheet" href="{% static 'css/lib/ionicons.min.css'%}">
+        <link rel="stylesheet" href="{% static 'css/lib/AdminLTE.min.css'%}">
+        <link rel="stylesheet" href="{% static 'css/lib/blue.css'%}">
+        <link rel="stylesheet" href="{% static 'css/lib/palette-callout.min.css' %}">
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -30,33 +29,33 @@
     {% endif %}
     <div class="register-box">
       <div class="register-box-body">
-        <p class="login-box-msg">Register a new User</p>
+        <h2 class="login-box-msg">Register a new User</h2>
         <form action="" method="post" onsubmit="return validate_form()">
           {% csrf_token %}
           <div class="form-group has-feedback">
             <input type="text" id="register_fname" class="form-control"
                    name="full_name" data-err-title="Full Name" placeholder="Full name">
-            <span class="form-control-feedback"><i class="fa fa-user"></i></span>
+            <!--<span class="form-control-feedback"><i class="fa fa-user"></i></span>-->
           </div>
           <div class="form-group has-feedback">
             <input type="email" id="register_email" class="form-control"
                    name="email" data-err-title="Email" placeholder="Email">
-            <span class="form-control-feedback"><i class="fa fa-envelope-o"></i></span>
+            <!--<span class="form-control-feedback"><i class="fa fa-envelope-o"></i></span>-->
           </div>
           <div class="form-group has-feedback">
             <input type="text" id="contact_no" class="form-control"
                    name="contact_no" data-err-title="Contact Number" placeholder="Contact Number">
-            <span class="form-control-feedback"><i class="fa fa-phone"></i></span>
+            <!--<span class="form-control-feedback"><i class="fa fa-phone"></i></span>-->
           </div>
           <div class="form-group has-feedback">
             <input type="password" id="register_pass" class="form-control"
                    name="password" data-err-title="Password" placeholder="Password">
-            <span class="form-control-feedback"><i class="fa fa-lock"></i></span>
+            <!--<span class="form-control-feedback"><i class="fa fa-lock"></i></span>-->
           </div>
           <div class="form-group has-feedback">
             <input type="password" id="register_re_pass" class="form-control"
                    name="confirm_pass" data-err-title="Confirm Password" placeholder="Retype password">
-            <span class="form-control-feedback"><i class="fa fa-sign-in"></i></span>
+            <!--<span class="form-control-feedback"><i class="fa fa-sign-in"></i></span>-->
           </div>
           <div class="form-group text-right">
             <button type="submit" class="btn btn-success">Registration</button>
@@ -65,8 +64,8 @@
         <a href="{{login_link}}" class="text-center">I already have a membership</a>
       </div>
     </div>
-    <script src="{% static 'js/jquery.min.js'%}"></script>
-    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/lib/jquery.min.js'%}"></script>
+    <script src="{% static 'js/lib/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/common.js'%}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
     <script>

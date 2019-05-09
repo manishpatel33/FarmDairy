@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, HttpResponseRedirect, reverse
 from django.core.exceptions import ValidationError
 from farmapp.helpers import authHelper as farmAuth
-from farmapp.models import FarmUser
+from farmapp.models import FarmUser, cropentry, cropsold, cropexpenses
 from django.core.exceptions import ValidationError
 from FarmProj.helpers import validateHelper
 from django.utils.translation import ugettext_lazy as _
@@ -19,6 +19,9 @@ from django.core.files.storage import FileSystemStorage
 
 HOME_PAGE = 'index.html'
 PROFILE_PAGE = 'profile.html'
+ENTRY_PAGE = 'entry.html'
+HISTORY_PAGE = 'history.html'
+SOLD_PAGE = 'sold.html'
 
 
 class index(View):
@@ -121,3 +124,134 @@ class changepassword(View):
         farmuser.save()
         messages.success(request, "Password Updated Successfully")
         return HttpResponseRedirect(reverse('farmApp:profile'))
+
+
+class entry(View):
+
+    @farmAuth.Farm_login_required_Class
+    def get(self, request):
+        return render(request, ENTRY_PAGE)
+
+    def validate_data(self, request):
+        data = {}
+
+        date = request.POST.get('date', '')
+        if date == '':
+            raise ValidationError(_('date Is Empty'))
+        data['year'] = date
+
+        crop_name = request.POST.get('crop_name', '')
+        if crop_name == '':
+            raise ValidationError(_('crop name Is Empty'))
+        data['crop_name'] = crop_name
+
+        area = request.POST.get('area', '')
+        if int(area) < 0:
+           raise ValidationError(_('Enter valid area'))
+        data['area'] = area
+
+        return data
+
+    def post(self, request):
+
+        try:
+            data = self.validate_data(request)
+        except ValidationError as e:
+            messages.error(request, e.message)
+            return HttpResponseRedirect(reverse('farmApp:register'))
+        except Exception as e:
+            pass
+
+        try:
+            farm = cropentry().createEntry(date=data['year'], area=data['area'],
+                                           crop_name=data['crop_name'])
+
+            messages.success(request, "data saved successfully.")
+        except Exception as e:
+            messages.error(request, e)
+
+        return redirect(request.META['HTTP_REFERER'])
+
+
+class history(View):
+
+    @farmAuth.Farm_login_required_Class
+    def get(self, request):
+        return render(request, HISTORY_PAGE)
+
+    def validate_data(self, request):
+        data = {}
+
+        date = request.POST.get('date', '')
+        if date == '':
+            raise ValidationError(_('date Is Empty'))
+        data['date'] = date
+
+        expenses_name = request.POST.get('expenses_name', '')
+        if expenses_name == '':
+            raise ValidationError(_('expenses name Is Empty'))
+        data['expenses_name'] = expenses_name
+
+        expenses_amount = request.POST.get('expenses_amount', '')
+        if expenses_amount == '':
+            raise ValidationError(_('expenses amount Is Empty'))
+        data['expenses_amount'] = expenses_amount
+
+        return data
+
+    def post(self, request):
+
+        try:
+            data = self.validate_data(request)
+        except ValidationError as e:
+            messages.error(request, e.message)
+            return HttpResponseRedirect(reverse('farmApp:register'))
+        except Exception as e:
+            pass
+
+        try:
+            farm = cropexpenses().createExpenses(expenses_name=data['expenses_name'],
+                                                 expenses_amount=data['expenses_amount'])
+            messages.success(request, "data saved successfully.")
+        except Exception as e:
+            messages.error(request, e)
+
+        return redirect(request.META['HTTP_REFERER'])
+
+
+class sold(View):
+
+    @farmAuth.Farm_login_required_Class
+    def get(self, request):
+        return render(request, SOLD_PAGE)
+
+    def validate_data(self, request):
+        data = {}
+
+        date = request.POST.get('date', '')
+        if date == '':
+            raise ValidationError(_('date Is Empty'))
+        data['date'] = date
+
+        crop_sold = request.POST.get('sold', '')
+        data['sold'] = crop_sold
+
+        return data
+
+    def post(self, request):
+
+        try:
+            data = self.validate_data(request)
+        except ValidationError as e:
+            messages.error(request, e.message)
+            return HttpResponseRedirect(reverse('farmApp:register'))
+        except Exception as e:
+            pass
+
+        try:
+            farm = cropsold().createSold(sold=data['sold'])
+            messages.success(request, "data saved successfully.")
+        except Exception as e:
+            messages.error(request, e)
+
+        return redirect(request.META['HTTP_REFERER'])

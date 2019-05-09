@@ -156,11 +156,11 @@ class forgetpassword(View):
 
     def validate_data(self, request):
         data = {}
-
         email = request.POST.get('email')
         if not validateHelper.validate_email(email):
             raise ValidationError('Email Is Not Valid')
         data['email'] = email
+        print(data['email'])
         try:
             farmUser = FarmUser.objects.get(email=data['email'])
         except:
@@ -191,7 +191,7 @@ class forgetpassword(View):
         encryption = commonMethods.Encryption()
         enc_email = encryption.encrypt(data['email'])
         Re_captcha = encryption.encrypt(data['g-recaptcha-response'])
-        token = str(obj.pk) + str(obj.first_name) + str(obj.last_name)
+        token = str(obj.pk) + str(obj.full_name) + str(obj.contact_no)
         enc_token = encryption.encrypt(token)
         millis = str(round(time.time() * 1000))
         c_time = encryption.encrypt(millis)
@@ -206,7 +206,7 @@ class forgetpassword(View):
 
         send_mail(subject, message, from_email, recipient_list, fail_silently)
         messages.success(request, "Mail successfully send")
-        return redirect(reverse('farmApp:forgetpass'))
+        return HttpResponseRedirect(reverse('farmApp:forgetpass'))
 
 
 def resetpassword(request, email, token, ctime):

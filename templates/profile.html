@@ -22,23 +22,25 @@
                         </div>
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form method="POST" action="{% url 'farmApp:profile'%}" onsubmit="return validate_form()">
+                                <form method="POST" action="{% url 'farmApp:profile'%}"
+                                      onsubmit="return validate_form()">
                                     {%  csrf_token %}
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Full Name</label>
-                                                <input id="full_name" class="form-control"
+                                                 <input id="full_name" class="form-control"  name="full_name"
                                                        data-err-title="Full Name" type="text"
-                                                       value="{{request.farm_user.full_name}}" name="full_name">
+                                                       value="{{request.farm_user.full_name}}">
+
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Contact No.</label>
-                                                <input id="contact_no" class="form-control"
+                                                <input id="contact_no" class="form-control" name="contact_no"
                                                        data-err-title="Contact Number" type="text"
-                                                       value="{{request.farm_user.contact_no}}" name="contact_no">
+                                                       value="{{request.farm_user.contact_no}}">
                                             </div>
                                         </div>
                                     </div>
@@ -59,7 +61,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="card">
                         <div class="card-title">
                             <h4>Change Password:</h4>
@@ -120,5 +121,16 @@
              return false;
             }
             }
+
+          function changepass_validate_form() {
+            if (!check_form({
+                     "old_password":"p",
+                     "new_password": "p",
+                     "confirm_password": "rp"
+                 })) {
+             return false;
+            }
+            }
+
 </script>
 {% endblock %}

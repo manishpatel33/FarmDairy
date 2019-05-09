@@ -31,3 +31,57 @@ class FarmUser(modelHelper.BaseUser):
         self.set_password(password)
         self.is_active = True
         self.save()
+
+
+class cropentry(models.Model):
+
+    class Meta:
+        db_table = 'crop_entry'
+
+    date = models.DateField(default=datetime.now)
+    crop_name = models.CharField(max_length=20, blank=True, null=True)
+    area = models.FloatField(null=False, blank=False)
+
+    def createEntry(self, date, crop_name, area):
+        self.date = date
+        self.crop_name = crop_name
+        self.area = area
+        self.save()
+
+
+class cropexpenses(models.Model):
+
+    class Meta:
+        db_table = 'crop_expenses'
+
+    date = models.DateField(default=datetime.now)
+    to_give_whom = models.CharField(max_length=100)
+    crop_id = models.IntegerField()
+    expenses_name = models.TextField()
+    expenses_amount = models.FloatField()
+
+    def createExpenses(self, date, crop_id, to_give_whom, expenses_name, expenses_amount):
+        self.date = date
+        self.to_give_whom = to_give_whom
+        self.expenses_name = expenses_name
+        self.expenses_amount = expenses_amount
+        self.crop_id = crop_id
+        self.save()
+
+
+class cropsold(models.Model):
+
+    class Meta:
+        db_table = 'crop_sold'
+
+    date = models.DateField(default=datetime.now)
+    sold_to_whom = models.CharField(max_length=100)
+    crop_id = models.IntegerField()
+    sold = models.FloatField(null=True, blank=True)
+
+    def createSold(self, sold_to_whom, date, crop_id, sold):
+        self.sold_to_whom = sold_to_whom
+        self.date = date
+        self.sold = sold
+        self.crop_id = crop_id
+        self.save()

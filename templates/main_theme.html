@@ -149,9 +149,15 @@
         <div class="sidebar sidebar-hide-to-small sidebar-shrink sidebar-gestures">
             <div class="nano">
                 <div class="nano-content">
-                    <div class="logo"><a href="index.html"><span>Focus</span></a></div>
+                    <div class="logo"><a href="index.html"><span>Farm Diary</span></a></div>
                     <ul>
                         <li><a href="{% url 'farmApp:home'%}"><i class="ti-home"></i>Dashboard</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="{% url 'farmApp:entry'%}"><i class="ti-pencil"></i>Add Entry</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="{% url 'farmApp:history'%}"><i class="ti-pencil"></i>History</a></li>
                     </ul>
                 </div>
             </div>

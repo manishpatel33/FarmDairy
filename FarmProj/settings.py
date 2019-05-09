@@ -150,3 +150,4 @@ EMAIL_HOST_USER = 'urvin.minddeft@gmail.com'
 EMAIL_HOST_PASSWORD = 'minddeft123'
 EMAIL_USE_TLS = True
 
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LfTgJ8UAAAAAEvlh34mG1Jt_hy8sl3BgaR_wY4e'
