@@ -41,12 +41,16 @@ class cropentry(models.Model):
     date = models.DateField(default=datetime.now)
     crop_name = models.CharField(max_length=20, blank=True, null=True)
     area = models.FloatField(null=False, blank=False)
+    user_id = models.IntegerField(null=False, blank=False)
 
-    def createEntry(self, date, crop_name, area):
+    def createEntry(self, date, crop_name, area, user_id):
         self.date = date
         self.crop_name = crop_name
         self.area = area
+        self.user_id = user_id
         self.save()
+
+
 
 
 class cropexpenses(models.Model):
@@ -76,12 +80,14 @@ class cropsold(models.Model):
 
     date = models.DateField(default=datetime.now)
     sold_to_whom = models.CharField(max_length=100)
+    sold = models.CharField(max_length=12)
+    crop_weight = models.CharField(max_length=12)
     crop_id = models.IntegerField()
-    sold = models.FloatField(null=True, blank=True)
 
-    def createSold(self, sold_to_whom, date, crop_id, sold):
+    def createSold(self, sold_to_whom, date, sold, crop_weight, crop_id):
         self.sold_to_whom = sold_to_whom
         self.date = date
+        self.crop_weight = crop_weight
         self.sold = sold
         self.crop_id = crop_id
         self.save()

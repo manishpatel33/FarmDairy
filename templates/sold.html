@@ -1,5 +1,5 @@
 {% extends 'main_theme.html' %}
-
+{% load static %}
 {% block headers %}
 {% endblock %}
 
@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                     <div class="card">
                         <div class="card-title">
-                            <h4>Add New Entry:</h4>
+                            <h4>Add Sold:</h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-elements">
@@ -34,9 +34,15 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Crop Weight</label>
-                                                 <input id="crop_weight" class="form-control"  name="crop_weight"
-                                                       data-err-title="Crop Weight" type="text">
+                                                <label>Which Crop</label>
+                                                <select class="form-control" data-err-title="Which Crop"
+                                                        id="which_crop" name="which_crop">
+                                                    {% if detail%}
+                                                        {% for i in detail%}
+                                                            <option>{{i.crop_name}}</option>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -44,15 +50,26 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Sold to Whom</label>
-                                                 <input id="cp" class="form-control" name="Sold_to_whom"
+                                                 <input id="sold_to_whom" class="form-control" name="sold_to_whom"
                                                        data-err-title="Sold to Whom" type="text">
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Sold Amount</label>
-                                                 <input id="sold" class="form-control"  name="sold_amount"
-                                                       data-err-title="sold amount" type="text">
+                                                 <input id="sold_amount" class="form-control"  name="sold_amount"
+                                                       data-err-title="sold amount" type="text"
+                                                       onkeydown="removeStringChar(this);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Crop Weight</label>
+                                                <input id="crop_weight" class="form-control" name="crop_weight"
+                                                       data-err-title="Crop Weight" type="text"
+                                                        onkeydown="removeStringChar(this);">
                                             </div>
                                         </div>
                                     </div>
@@ -71,12 +88,14 @@
 
 
 {% block scriptfile %}
+
 <script>
           function validate_form() {
             if (!check_form({
-                     "full_name": "c",
-                     "contact_no": "c",
-                     "email": "e",
+                     "date": "c",
+                     "sold_to_whom": "c",
+                     "sold_amount": "c",
+                     "crop_weight": "c",
                  })) {
              return false;
             }

@@ -43,32 +43,10 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Expenses Name</label>
-                                                 <input id="expenses_name" class="form-control" name="expenses_name"
-                                                       data-err-title="Expenses" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Expenses Amount</label>
-                                                 <input id="expenses_amount" class="form-control" name="expenses_amount"
-                                                       data-err-title="crop name" type="text">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
                                                 <label>Area</label>
-                                                 <input id="cp" class="form-control"  name="area"
-                                                       data-err-title="crop name" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group">
-                                                <label>Sold</label>
-                                                 <input id="sold" class="form-control"  name="sold"
-                                                       data-err-title="sold" type="text">
+                                                 <input id="area" class="form-control"  name="area"
+                                                       data-err-title="area" type="text"
+                                                       onkeydown="removeStringChar(this);">
                                             </div>
                                         </div>
                                     </div>
@@ -90,9 +68,9 @@
 <script>
           function validate_form() {
             if (!check_form({
-                     "full_name": "c",
-                     "contact_no": "c",
-                     "email": "e",
+                     "date": "c",
+                     "crop_name": "c",
+                     "area": "c",
                  })) {
              return false;
             }

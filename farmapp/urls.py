@@ -14,8 +14,9 @@ urlpatterns = [
     path('home/', Home.index.as_view(), name='home'),
     path('profile', Home.profile.as_view(), name='profile'),
     path('entry', Home.entry.as_view(), name='entry'),
-    path('history', Home.history.as_view(), name='history'),
+    path('expenses', Home.expenses.as_view(), name='expenses'),
     path('sold', Home.sold.as_view(), name='sold'),
+    path('history', Home.history.as_view(), name='history'),
 
     path('logout/', Auth.logout, name='logout'),
 ]
